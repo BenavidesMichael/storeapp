@@ -1,0 +1,28 @@
+### Get all products
+GET http://localhost:3000/products?limit=10&offset=5&brand=adidas
+
+### Get Product
+GET http://localhost:3000/products/1
+
+### Create Product
+POST http://localhost:3000/products
+Content-Type: application/json
+
+{
+  "name": "Nike Air Max 90",
+  "brand": "Nike",
+  "price": 100,
+}
+
+### Update Product
+PUT http://localhost:3000/products/1
+Content-Type: application/json
+
+{
+  "name": "Nike Air Max 90",
+  "brand": "Nike",
+  "price": 150,
+}
+
+### Delete Product
+DELETE http://localhost:3000/products/1
