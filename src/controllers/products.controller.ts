@@ -9,19 +9,21 @@ import {
   Post,
   Put,
   Query,
+  ParseIntPipe,
 } from '@nestjs/common';
+
+import { ProductsService } from '../services/products.service';
+import { Product } from 'src/entities/product.entity';
+import { CreateProductDto } from 'src/dtos/create-product.dto';
 
 @Controller('products')
 export class ProductsController {
+  constructor(private productsService: ProductsService) {}
+
   @Get()
-  get(
-    @Query('limit') limit = 100,
-    @Query('offset') offset = 50,
-    @Query('brand') brand: string,
-  ) {
-    return {
-      message: `products limit => ${limit} and offset => ${offset} and brand => ${brand}`,
-    };
+  get(@Query('limit') limit = 100, @Query('offset') offset = 0) {
+    const products = this.productsService.getAllProducts();
+    return products.slice(offset, limit);
   }
 
   // faut toujours mettre les routes les plus spécifiques en premier
@@ -35,35 +37,24 @@ export class ProductsController {
 
   @Get(':productId')
   @HttpCode(HttpStatus.OK)
-  getProductById(@Param('productId') productId: string) {
-    return {
-      message: `product ${productId}`,
-    };
+  getProductById(@Param('productId', ParseIntPipe) productId: number) {
+    return this.productsService.getProductById(productId);
   }
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  post(@Body() payload: any) {
-    console.log(payload);
-    return {
-      message: 'accion de crear',
-      payload,
-    };
+  post(@Body() payload: CreateProductDto) {
+    return this.productsService.createProduct(payload);
   }
 
   @Put(':id')
   @HttpCode(HttpStatus.CREATED)
-  update(@Param('id') id: number, @Body() payload: any) {
-    return {
-      id,
-      payload,
-    };
+  update(@Param('id', ParseIntPipe) id: number, @Body() payload: Product) {
+    return this.productsService.updateProduct(id, payload);
   }
 
   @Delete(':id')
-  delete(@Param('id') id: number) {
-    return {
-      id,
-    };
+  delete(@Param('id', ParseIntPipe) id: number) {
+    return this.productsService.deleteProduct(id);
   }
 }

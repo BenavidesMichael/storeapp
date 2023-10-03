@@ -1,8 +1,21 @@
 ### Get all products
-GET http://localhost:3000/products?limit=10&offset=5&brand=adidas
+GET http://localhost:3000/products?limit=10
 
 ### Get Product
 GET http://localhost:3000/products/1
+
+### Product Not Found
+GET http://localhost:3000/products/6565451
+
+### Create Product with validation error
+POST http://localhost:3000/products
+Content-Type: application/json
+
+{
+  "name": "",
+  "price": 100,
+  "stock": -20
+}
 
 ### Create Product
 POST http://localhost:3000/products
@@ -11,18 +24,21 @@ Content-Type: application/json
 {
   "name": "Nike Air Max 90",
   "brand": "Nike",
+  "description": "nice shoes",
   "price": 100,
+  "stock": 20,
+  "image": "https://picsum.photos/200"
 }
 
 ### Update Product
-PUT http://localhost:3000/products/1
+PUT http://localhost:3000/products/3
 Content-Type: application/json
 
 {
   "name": "Nike Air Max 90",
   "brand": "Nike",
-  "price": 150,
+  "price": 150
 }
 
 ### Delete Product
-DELETE http://localhost:3000/products/1
+DELETE http://localhost:3000/products/3
