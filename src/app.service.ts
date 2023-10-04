@@ -1,11 +1,14 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { ConfigType } from '@nestjs/config';
+import settings from './../settings';
 
 @Injectable()
 export class AppService {
-  //Api key injection value provider in Module
-  constructor(@Inject('API_KEY') private apiKey: string) {}
+  constructor(
+    @Inject(settings.KEY) private appsetting: ConfigType<typeof settings>,
+  ) {}
 
   getHello(): string {
-    return `Hello World! ${this.apiKey}`;
+    return `Hello World! ${this.appsetting.api.key}`;
   }
 }

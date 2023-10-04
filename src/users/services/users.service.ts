@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-
+import { ConfigService } from '@nestjs/config';
 import { User } from '../entities/user.entity';
 import { CreateUserDto, UpdateUserDto } from '../dtos/user.dto';
 import { ProductsService } from 'src/products/services/products.service';
@@ -7,7 +7,10 @@ import { Order } from '../entities/order.entity';
 
 @Injectable()
 export class UsersService {
-  constructor(private productsService: ProductsService) {}
+  constructor(
+    private productsService: ProductsService,
+    private appsetting: ConfigService,
+  ) {}
 
   private counterId = 1;
   private users: User[] = [
@@ -20,6 +23,8 @@ export class UsersService {
   ];
 
   getAll() {
+    console.log(this.appsetting.get('API_KEY'));
+    console.log(this.appsetting.get('DATABASE_NAME'));
     return this.users;
   }
 
