@@ -12,9 +12,9 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 
+import { Product } from 'src/products/entities/product.entity';
+import { CreateProductDto } from 'src/products/dtos/create-product.dto';
 import { ProductsService } from '../services/products.service';
-import { Product } from 'src/entities/product.entity';
-import { CreateProductDto } from 'src/dtos/create-product.dto';
 
 @Controller('products')
 export class ProductsController {
