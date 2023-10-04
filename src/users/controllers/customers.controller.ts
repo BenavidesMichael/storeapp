@@ -17,7 +17,7 @@ export class CustomersController {
   constructor(private customersService: CustomersService) {}
 
   @Get()
-  findAll() {
+  getAll() {
     return this.customersService.getAll();
   }
 

@@ -23,7 +23,6 @@ Content-Type: application/json
 
 {
   "name": "Nike Air Max 90",
-  "brand": "Nike",
   "description": "nice shoes",
   "price": 100,
   "stock": 20,
