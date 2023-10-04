@@ -15,7 +15,9 @@ import {
 import { Product } from 'src/products/entities/product.entity';
 import { CreateProductDto } from 'src/products/dtos/products.dtos';
 import { ProductsService } from '../services/products.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('products')
 @Controller('products')
 export class ProductsController {
   constructor(private productsService: ProductsService) {}

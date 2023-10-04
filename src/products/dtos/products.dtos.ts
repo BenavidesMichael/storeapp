@@ -1,6 +1,7 @@
 // npm i class-validator class-transformer @nestjs/mapped-types
 // add to main.ts app.useGlobalPipes(new ValidationPipe());
 // import { PartialType } from '@nestjs/mapped-types';
+import { ApiProperty } from '@nestjs/swagger';
 import {
   IsString,
   IsNumber,
@@ -10,6 +11,7 @@ import {
 } from 'class-validator';
 
 export class CreateProductDto {
+  @ApiProperty({ description: 'name of product' })
   @IsString()
   @IsNotEmpty()
   readonly name: string;
