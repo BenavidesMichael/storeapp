@@ -25,9 +25,11 @@ import settings from './../settings';
       // valide aussi le type des variables d'environement (string, number, etc.)
       validationSchema: Joi.object({
         // .env
-        API_KEY: Joi.string().required(),
-        DATABASE_NAME: Joi.string().required(),
-        DATABASE_PORT: Joi.number().required(),
+        HOST: Joi.string().required(),
+        USERNAME: Joi.string().required(),
+        PASSWORD: Joi.string().required(),
+        DATABASE: Joi.string().required(),
+        PORT: Joi.number().required().default(1433),
       }),
     }),
     UsersModule,

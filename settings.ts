@@ -5,11 +5,11 @@ export default registerAs('settings', () => ({
     key: process.env.API_KEY,
   },
   database: {
-    host: process.env.DATABASE_HOST,
-    port: parseInt(process.env.DATABASE_PORT, 10) || 3306,
-    username: process.env.DATABASE_USERNAME,
-    password: process.env.DATABASE_PASSWORD,
-    database: process.env.DATABASE_NAME,
+    host: process.env.HOST,
+    port: parseInt(process.env.PORT, 10) || 1433,
+    username: process.env.USERNAME,
+    password: process.env.PASSWORD,
+    name: process.env.NAME,
   },
   jwt: {
     secret: process.env.JWT_SECRET,

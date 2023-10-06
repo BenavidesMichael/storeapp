@@ -11,19 +11,23 @@ $ npm install
 
 Before running the project, you need to create three configuration files: `.env`, `.stag.env`, and `.accp.env`. Make sure to fill in the values for the following variables in each of these files:
 ```bash
-    - `API_KEY`: Replace `XXXX` with your API key.
-    - `DATABASE_NAME`: Replace `XXXX` with your database name.
-    - `DATABASE_USER`: Replace `XXXX` with your database user.
-    - `DATABASE_PORT`: Replace `XXXX` with your database port.
+    - `NAME`: Replace `XXXX` with your database name.
+    - `USERNAME`: Replace `XXXX` with your database user.
+    - `PASSWORD`: Replace `XXXX` with your database password.
+    - `PORT`: Replace `XXXX` with your database port.
+    - `HOST`: Replace `XXXX` with your database host.
+
+
 ```
 Here is an example content for each file:
 # .env
 Remember to replace `XXXX` with the appropriate values for your application. Good luck with your project!
 ```plaintext
-    API_KEY=XXXX
-    DATABASE_NAME=XXXX
-    DATABASE_USER=XXXX
-    DATABASE_PORT=XXXX
+    HOST=XXXX
+    NAME=XXXX
+    USERNAME=XXXX
+    PASSWORD=XXXX
+    PORT=XXXX
 ```
 ---
 
