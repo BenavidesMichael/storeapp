@@ -11,11 +11,11 @@ $ npm install
 
 Before running the project, you need to create three configuration files: `.env`, `.stag.env`, and `.prod.env`. Make sure to fill in the values for the following variables in each of these files:
 ```bash
-    - `DATABASE_NAME`: Replace `XXXX` with your database name.
-    - `DATABASE_USER`: Replace `XXXX` with your database user.
-    - `DATABASE_PASSWORD`: Replace `XXXX` with your database password.
-    - `DATABASE_PORT`: Replace `XXXX` with your database port.
-    - `DATABASE_HOST`: Replace `XXXX` with your database host.
+    - `DATABASE_NAME`: `XXXX`
+    - `DATABASE_USER`: `XXXX`
+    - `DATABASE_PASSWORD`: `XXXX`
+    - `DATABASE_PORT`: 1234
+    - `DATABASE_HOST`: `XXXX`
 ```
 
 ## Running the app
