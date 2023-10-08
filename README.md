@@ -16,20 +16,7 @@ Before running the project, you need to create three configuration files: `.env`
     - `DATABASE_PASSWORD`: Replace `XXXX` with your database password.
     - `DATABASE_PORT`: Replace `XXXX` with your database port.
     - `DATABASE_HOST`: Replace `XXXX` with your database host.
-
-
 ```
-Here is an example content for each file:
-# .env
-Remember to replace `XXXX` with the appropriate values for your application. Good luck with your project!
-```plaintext
-    HOST=XXXX
-    NAME=XXXX
-    USERNAME=XXXX
-    PASSWORD=XXXX
-    PORT=XXXX
-```
----
 
 ## Running the app
 
