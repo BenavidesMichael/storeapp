@@ -3,6 +3,7 @@ import { Repository } from 'typeorm';
 // import { CreateProductDto } from 'src/products/dtos/products.dtos';
 import { Product } from 'src/products/entities/product.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { CreateProductDto } from '../dtos/products.dtos';
 
 @Injectable()
 export class ProductsService {
@@ -17,6 +18,7 @@ export class ProductsService {
 
   getProductById(id: number) {
     const product = this.productRepository.find();
+
     if (!product) {
       throw new NotFoundException(`Product #${id} not found`);
     }
@@ -24,39 +26,25 @@ export class ProductsService {
     return product;
   }
 
-  // createProduct(product: CreateProductDto) {
-  //   const newProduct = {
-  //     id: this.products.length + 1,
-  //     ...product,
-  //   };
+  createProduct(product: CreateProductDto) {
+    const newproduct = this.productRepository.create(product);
+    return this.productRepository.save(newproduct);
+  }
 
-  //   this.products.push(newProduct);
-  //   return product;
-  // }
+  async updateProduct(id: number, changes: Partial<CreateProductDto>) {
+    const product = await this.productRepository.findOne({
+      where: { id }, // Recherche par ID
+    });
 
-  // updateProduct(id: number, changes: Partial<CreateProductDto>) {
-  //   const product = this.getProductById(id);
-  //   if (!product) {
-  //     throw new NotFoundException(`Product #${id} not found`);
-  //   }
+    if (!product) {
+      throw new NotFoundException(`Product #${id} not found`);
+    }
 
-  //   const index = this.products.findIndex((product) => product.id === id);
-  //   this.products[index] = {
-  //     id,
-  //     ...product,
-  //     ...changes,
-  //   };
+    this.productRepository.merge(product, changes);
+    return this.productRepository.save(product);
+  }
 
-  //   return this.products[index];
-  // }
-
-  // deleteProduct(id: number) {
-  //   const index = this.products.findIndex((product) => product.id === id);
-  //   if (index === -1) {
-  //     throw new NotFoundException(`Product #${id} not found`);
-  //   }
-
-  //   this.products.splice(index, 1);
-  //   return true;
-  // }
+  deleteProduct(id: number) {
+    return this.productRepository.delete(id);
+  }
 }

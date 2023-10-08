@@ -22,7 +22,7 @@ POST http://localhost:3000/products
 Content-Type: application/json
 
 {
-  "name": "Nike Air Max 90",
+  "name": "product 1",
   "description": "nice shoes",
   "price": 100,
   "stock": 20,
@@ -34,8 +34,7 @@ PUT http://localhost:3000/products/3
 Content-Type: application/json
 
 {
-  "name": "Nike Air Max 90",
-  "brand": "Nike",
+  "description": "updated description",
   "price": 150
 }
 

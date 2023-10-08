@@ -1,13 +1,13 @@
 import {
-  // Body,
+  Body,
   Controller,
-  // Delete,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
   Param,
-  // Post,
-  // Put,
+  Post,
+  Put,
   // Query,
   ParseIntPipe,
 } from '@nestjs/common';
@@ -16,6 +16,7 @@ import {
 // import { CreateProductDto } from 'src/products/dtos/products.dtos';
 import { ProductsService } from '../services/products.service';
 import { ApiTags } from '@nestjs/swagger';
+import { CreateProductDto } from '../dtos/products.dtos';
 
 @ApiTags('products')
 @Controller('products')
@@ -25,8 +26,8 @@ export class ProductsController {
   @Get()
   // get(@Query('limit') limit = 100, @Query('offset') offset = 0)
   async get() {
-    const products = this.productsService.getAllProducts();
-    return await products;
+    const products = await this.productsService.getAllProducts();
+    return products;
   }
 
   // faut toujours mettre les routes les plus spécifiques en premier
@@ -44,20 +45,23 @@ export class ProductsController {
     return this.productsService.getProductById(productId);
   }
 
-  // @Post()
-  // @HttpCode(HttpStatus.CREATED)
-  // post(@Body() payload: CreateProductDto) {
-  //   return this.productsService.createProduct(payload);
-  // }
+  @Post()
+  @HttpCode(HttpStatus.CREATED)
+  async post(@Body() payload: CreateProductDto) {
+    return await this.productsService.createProduct(payload);
+  }
 
-  // @Put(':id')
-  // @HttpCode(HttpStatus.CREATED)
-  // update(@Param('id', ParseIntPipe) id: number, @Body() payload: Product) {
-  //   return this.productsService.updateProduct(id, payload);
-  // }
+  @Put(':id')
+  @HttpCode(HttpStatus.CREATED)
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() payload: Partial<CreateProductDto>,
+  ) {
+    return this.productsService.updateProduct(id, payload);
+  }
 
-  // @Delete(':id')
-  // delete(@Param('id', ParseIntPipe) id: number) {
-  //   return this.productsService.deleteProduct(id);
-  // }
+  @Delete(':id')
+  delete(@Param('id', ParseIntPipe) id: number) {
+    return this.productsService.deleteProduct(id);
+  }
 }
