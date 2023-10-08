@@ -9,7 +9,7 @@ $ npm install
 ```
 ## Create Configuration Files
 
-Before running the project, you need to create three configuration files: `.env`, `.stag.env`, and `.accp.env`. Make sure to fill in the values for the following variables in each of these files:
+Before running the project, you need to create three configuration files: `.env`, `.stag.env`, and `.prod.env`. Make sure to fill in the values for the following variables in each of these files:
 ```bash
     - `DATABASE_NAME`: Replace `XXXX` with your database name.
     - `DATABASE_USER`: Replace `XXXX` with your database user.
