@@ -15,5 +15,7 @@ export const validationConfig = {
     DATABASE_USER: Joi.string().required(),
     DATABASE_PASSWORD: Joi.string().required(),
     DATABASE_NAME: Joi.string().required(),
+    DATABASE_AUTO_LOAD_ENTITIES: Joi.boolean().required().default(false),
+    DATABASE_SYNCHRONIZE: Joi.boolean().required().default(false),
   }),
 };

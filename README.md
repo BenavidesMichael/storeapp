@@ -16,6 +16,8 @@ Before running the project, you need to create three configuration files: `.env`
     DATABASE_PASSWORD : `XXXX`
     DATABASE_PORT : 1234
     DATABASE_HOST : `XXXX`
+    DATABASE_AUTO_LOAD_ENTITIES : False
+    DATABASE_SYNCHRONIZE : False
 ```
 
 ## Running the app

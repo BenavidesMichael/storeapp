@@ -10,6 +10,8 @@ export default registerAs('settings', () => ({
     username: process.env.DATABASE_USER,
     password: process.env.DATABASE_PASSWORD,
     name: process.env.DATABASE_NAME,
+    synchronize: Boolean(process.env.DATABASE_SYNCHRONIZE),
+    autoLoadEntities: Boolean(process.env.DATABASE_AUTO_LOAD_ENTITIES),
   },
   jwt: {
     secret: process.env.JWT_SECRET,

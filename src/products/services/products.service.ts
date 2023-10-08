@@ -16,8 +16,10 @@ export class ProductsService {
     return this.productRepository.find();
   }
 
-  getProductById(id: number) {
-    const product = this.productRepository.find();
+  async getProductById(id: number) {
+    const product = await this.productRepository.findOne({
+      where: { id }, // Recherche par ID
+    });
 
     if (!product) {
       throw new NotFoundException(`Product #${id} not found`);
