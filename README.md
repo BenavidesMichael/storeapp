@@ -11,11 +11,11 @@ $ npm install
 
 Before running the project, you need to create three configuration files: `.env`, `.stag.env`, and `.accp.env`. Make sure to fill in the values for the following variables in each of these files:
 ```bash
-    - `NAME`: Replace `XXXX` with your database name.
-    - `USERNAME`: Replace `XXXX` with your database user.
-    - `PASSWORD`: Replace `XXXX` with your database password.
-    - `PORT`: Replace `XXXX` with your database port.
-    - `HOST`: Replace `XXXX` with your database host.
+    - `DATABASE_NAME`: Replace `XXXX` with your database name.
+    - `DATABASE_USER`: Replace `XXXX` with your database user.
+    - `DATABASE_PASSWORD`: Replace `XXXX` with your database password.
+    - `DATABASE_PORT`: Replace `XXXX` with your database port.
+    - `DATABASE_HOST`: Replace `XXXX` with your database host.
 
 
 ```

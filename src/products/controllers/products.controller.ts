@@ -1,19 +1,19 @@
 import {
-  Body,
+  // Body,
   Controller,
-  Delete,
+  // Delete,
   Get,
   HttpCode,
   HttpStatus,
   Param,
-  Post,
-  Put,
-  Query,
+  // Post,
+  // Put,
+  // Query,
   ParseIntPipe,
 } from '@nestjs/common';
 
-import { Product } from 'src/products/entities/product.entity';
-import { CreateProductDto } from 'src/products/dtos/products.dtos';
+// import { Product } from 'src/products/entities/product.entity';
+// import { CreateProductDto } from 'src/products/dtos/products.dtos';
 import { ProductsService } from '../services/products.service';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -23,9 +23,10 @@ export class ProductsController {
   constructor(private productsService: ProductsService) {}
 
   @Get()
-  get(@Query('limit') limit = 100, @Query('offset') offset = 0) {
+  // get(@Query('limit') limit = 100, @Query('offset') offset = 0)
+  async get() {
     const products = this.productsService.getAllProducts();
-    return products.slice(offset, limit);
+    return await products;
   }
 
   // faut toujours mettre les routes les plus spécifiques en premier
@@ -43,20 +44,20 @@ export class ProductsController {
     return this.productsService.getProductById(productId);
   }
 
-  @Post()
-  @HttpCode(HttpStatus.CREATED)
-  post(@Body() payload: CreateProductDto) {
-    return this.productsService.createProduct(payload);
-  }
+  // @Post()
+  // @HttpCode(HttpStatus.CREATED)
+  // post(@Body() payload: CreateProductDto) {
+  //   return this.productsService.createProduct(payload);
+  // }
 
-  @Put(':id')
-  @HttpCode(HttpStatus.CREATED)
-  update(@Param('id', ParseIntPipe) id: number, @Body() payload: Product) {
-    return this.productsService.updateProduct(id, payload);
-  }
+  // @Put(':id')
+  // @HttpCode(HttpStatus.CREATED)
+  // update(@Param('id', ParseIntPipe) id: number, @Body() payload: Product) {
+  //   return this.productsService.updateProduct(id, payload);
+  // }
 
-  @Delete(':id')
-  delete(@Param('id', ParseIntPipe) id: number) {
-    return this.productsService.deleteProduct(id);
-  }
+  // @Delete(':id')
+  // delete(@Param('id', ParseIntPipe) id: number) {
+  //   return this.productsService.deleteProduct(id);
+  // }
 }

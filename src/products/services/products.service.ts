@@ -1,42 +1,22 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateProductDto } from 'src/products/dtos/products.dtos';
+import { Repository } from 'typeorm';
+// import { CreateProductDto } from 'src/products/dtos/products.dtos';
 import { Product } from 'src/products/entities/product.entity';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class ProductsService {
-  private products: Product[] = [
-    {
-      id: 1,
-      name: 'Product 1',
-      description: 'This is product 1',
-      price: 1000,
-      stock: 10,
-      image: 'https://picsum.photos/200',
-    },
-    {
-      id: 2,
-      name: 'Product 2',
-      description: 'This is product 2',
-      price: 2000,
-      stock: 20,
-      image: 'https://picsum.photos/200',
-    },
-    {
-      id: 3,
-      name: 'Product 3',
-      description: 'This is product 3',
-      price: 3000,
-      stock: 30,
-      image: 'https://picsum.photos/200',
-    },
-  ];
+  constructor(
+    @InjectRepository(Product)
+    private productRepository: Repository<Product>,
+  ) {}
 
-  getAllProducts(): Product[] {
-    return this.products;
+  getAllProducts() {
+    return this.productRepository.find();
   }
 
-  getProductById(id: number): Product {
-    const product = this.products.find((product) => product.id === id);
+  getProductById(id: number) {
+    const product = this.productRepository.find();
     if (!product) {
       throw new NotFoundException(`Product #${id} not found`);
     }
@@ -44,39 +24,39 @@ export class ProductsService {
     return product;
   }
 
-  createProduct(product: CreateProductDto) {
-    const newProduct = {
-      id: this.products.length + 1,
-      ...product,
-    };
+  // createProduct(product: CreateProductDto) {
+  //   const newProduct = {
+  //     id: this.products.length + 1,
+  //     ...product,
+  //   };
 
-    this.products.push(newProduct);
-    return product;
-  }
+  //   this.products.push(newProduct);
+  //   return product;
+  // }
 
-  updateProduct(id: number, changes: Partial<CreateProductDto>) {
-    const product = this.getProductById(id);
-    if (!product) {
-      throw new NotFoundException(`Product #${id} not found`);
-    }
+  // updateProduct(id: number, changes: Partial<CreateProductDto>) {
+  //   const product = this.getProductById(id);
+  //   if (!product) {
+  //     throw new NotFoundException(`Product #${id} not found`);
+  //   }
 
-    const index = this.products.findIndex((product) => product.id === id);
-    this.products[index] = {
-      id,
-      ...product,
-      ...changes,
-    };
+  //   const index = this.products.findIndex((product) => product.id === id);
+  //   this.products[index] = {
+  //     id,
+  //     ...product,
+  //     ...changes,
+  //   };
 
-    return this.products[index];
-  }
+  //   return this.products[index];
+  // }
 
-  deleteProduct(id: number) {
-    const index = this.products.findIndex((product) => product.id === id);
-    if (index === -1) {
-      throw new NotFoundException(`Product #${id} not found`);
-    }
+  // deleteProduct(id: number) {
+  //   const index = this.products.findIndex((product) => product.id === id);
+  //   if (index === -1) {
+  //     throw new NotFoundException(`Product #${id} not found`);
+  //   }
 
-    this.products.splice(index, 1);
-    return true;
-  }
+  //   this.products.splice(index, 1);
+  //   return true;
+  // }
 }

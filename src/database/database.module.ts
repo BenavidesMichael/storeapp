@@ -1,10 +1,7 @@
 import { Module, Global } from '@nestjs/common';
-import { ConfigModule, ConfigService, ConfigType } from '@nestjs/config';
+import { ConfigModule, ConfigType } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import settings from './../../settings';
-
-const API_KEY = '12345634';
-const API_KEY_PROD = 'PROD1212121SA';
 
 @Global()
 @Module({
@@ -18,21 +15,21 @@ const API_KEY_PROD = 'PROD1212121SA';
         username: configService.database.username,
         password: configService.database.password,
         database: configService.database.name,
-        entities: ['src/server/common/data/models/**/*.model{.ts,.js}'],
         synchronize: true,
+        pool: {
+          max: 10,
+          min: 0,
+          idleTimeoutMillis: 30000,
+        },
+        options: {
+          // encrypt: true, // for azure
+          trustServerCertificate: true, // change to true for local dev / self-signed certs
+        },
       }),
-      inject: [ConfigService],
+      inject: [settings.KEY],
     }),
   ],
-  providers: [
-    {
-      //useValue : permet de dire a notre module qu'on a besoin d'injecter une valeur autre part.
-      provide: 'API_KEY', // name
-      useValue: process.env.NODE_ENV === 'prod' ? API_KEY_PROD : API_KEY, // value
-    },
-  ],
   exports: [
-    'API_KEY',
     TypeOrmModule, // permet d'exporter la connexion a la base de donnée pour l'utiliser dans d'autres modules
   ],
 })
