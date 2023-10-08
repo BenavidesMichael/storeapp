@@ -16,6 +16,7 @@ import settings from './../../settings';
         password: configService.database.password,
         database: configService.database.name,
         synchronize: true,
+        autoLoadEntities: true,
         pool: {
           max: 10,
           min: 0,
