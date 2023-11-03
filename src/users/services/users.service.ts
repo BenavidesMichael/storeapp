@@ -3,73 +3,62 @@ import { ConfigService } from '@nestjs/config';
 import { User } from '../entities/user.entity';
 import { CreateUserDto, UpdateUserDto } from '../dtos/user.dto';
 import { ProductsService } from 'src/products/services/products.service';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class UsersService {
   constructor(
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
     private productsService: ProductsService,
     private appsetting: ConfigService,
   ) {}
 
-  private counterId = 1;
-  private users: User[] = [
-    {
-      id: 1,
-      email: 'mail@mail.com',
-      password: '12345',
-      role: 'admin',
-    },
-  ];
-
   getAll() {
-    console.log(this.appsetting.get('API_KEY'));
-    console.log(this.appsetting.get('DATABASE_NAME'));
-    return this.users;
+    return this.userRepository.find();
   }
 
-  getById(id: number) {
-    const user = this.users.find((item) => item.id === id);
+  async getById(id: number) {
+    const user = await this.userRepository.findOne({
+      where: { id }, // Recherche par ID
+    });
+
     if (!user) {
-      throw new NotFoundException(`User #${id} not found`);
+      throw new NotFoundException(`user #${id} not found`);
     }
+
     return user;
   }
 
   create(data: CreateUserDto) {
-    this.counterId = this.counterId + 1;
-    const newUser = {
-      id: this.counterId,
-      ...data,
-    };
-    this.users.push(newUser);
-    return newUser;
+    const newser = this.userRepository.create(data);
+    return this.userRepository.save(newser);
   }
 
-  update(id: number, changes: UpdateUserDto) {
-    const user = this.getById(id);
-    const index = this.users.findIndex((item) => item.id === id);
-    this.users[index] = {
-      ...user,
-      ...changes,
-    };
-    return this.users[index];
+  async update(id: number, changes: UpdateUserDto) {
+    const user = await this.userRepository.findOne({
+      where: { id }, // Recherche par ID
+    });
+
+    if (!user) {
+      throw new NotFoundException(`Product #${id} not found`);
+    }
+
+    this.userRepository.merge(user, changes);
+    return this.userRepository.save(user);
   }
 
   remove(id: number) {
-    const index = this.users.findIndex((item) => item.id === id);
-    if (index === -1) {
-      throw new NotFoundException(`User #${id} not found`);
-    }
-    this.users.splice(index, 1);
-    return true;
+    return this.userRepository.delete(id);
   }
 
-  getOrdersByUserId(userId: number) {
-    const user = this.getById(userId);
+  async getOrdersByUserId(userId: number) {
+    const user = await this.getById(userId);
     return {
       date: new Date(),
       user,
-      products: this.productsService.getAllProducts(),
+      products: await this.productsService.getAllProducts(),
     };
   }
 }

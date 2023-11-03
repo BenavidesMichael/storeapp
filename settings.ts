@@ -1,5 +1,7 @@
 import { registerAs } from '@nestjs/config';
 
+// serts a charger les variables d'environnement et les injecter dans le module
+// . Il lit les valeurs des variables d'environnement du fichier .env et les rend disponibles pour le reste de l'application.
 export default registerAs('settings', () => ({
   api: {
     key: process.env.API_KEY,
@@ -12,6 +14,7 @@ export default registerAs('settings', () => ({
     name: process.env.DATABASE_NAME,
     synchronize: Boolean(process.env.DATABASE_SYNCHRONIZE),
     autoLoadEntities: Boolean(process.env.DATABASE_AUTO_LOAD_ENTITIES),
+    trustServerCertificate: true,
   },
   jwt: {
     secret: process.env.JWT_SECRET,

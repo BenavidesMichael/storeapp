@@ -1,9 +1,8 @@
-import { Module, Global } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigType } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import settings from './../../settings';
+import settings from '../../settings';
 
-@Global()
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
@@ -17,11 +16,6 @@ import settings from './../../settings';
         database: configService.database.name,
         synchronize: configService.database.synchronize,
         autoLoadEntities: configService.database.autoLoadEntities,
-        pool: {
-          max: 10,
-          min: 0,
-          idleTimeoutMillis: 30000,
-        },
         options: {
           // encrypt: true, // for azure
           trustServerCertificate: true, // change to true for local dev / self-signed certs
@@ -31,7 +25,8 @@ import settings from './../../settings';
     }),
   ],
   exports: [
-    TypeOrmModule, // permet d'exporter la connexion a la base de donnée pour l'utiliser dans d'autres modules
+    // permet d'exporter la connexion a la base de donnée pour l'utiliser dans d'autres modules
+    TypeOrmModule,
   ],
 })
 export class DatabaseModule {}

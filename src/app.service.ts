@@ -9,6 +9,7 @@ export class AppService {
   ) {}
 
   getHello(): string {
-    return `Hello World! ${this.appsetting.api.key}`;
+    // return `Hello World! ${this.appsetting.api.key}`;
+    return `Hello World!`;
   }
 }

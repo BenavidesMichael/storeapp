@@ -1,3 +1,4 @@
+import { Order } from 'src/users/entities/order.entity';
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
@@ -19,4 +20,6 @@ export class Product {
 
   @Column()
   image: string;
+
+  order: Order;
 }
